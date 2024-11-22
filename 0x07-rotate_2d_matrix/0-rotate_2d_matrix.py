@@ -4,17 +4,12 @@
 
 def rotate_2d_matrix(matrix):
     '''rotates a 2d matrix 90° clockwise'''
-    left, right = 0, len(matrix) - 1
+    n = len(matrix)
+    # Transpose the matrix
+    for i in range(n):
+        for j in range(i, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 
-    while left < right:
-        for i in range(right - left):
-            top, bottom = left, right
-            topLeft = matrix[top][left + i]
-            matrix[top][left + i] = matrix[bottom - i][left]
-            matrix[bottom - i][left] = matrix[bottom][right - i]
-            # move top right to bottom right
-            matrix[bottom][right - i] = matrix[top + i][right]
-            # move top left to top right
-            matrix[top + i][right] = topLeft
-            right -= 1
-            left += 1
+    # Reverse each row
+    for row in matrix:
+        row.reverse()
